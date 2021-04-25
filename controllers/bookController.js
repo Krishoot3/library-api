@@ -10,7 +10,7 @@ exports.book_add = (req, res) => {
 };
 
 exports.book_filter_detail = (req, res) => {
-    
+
     res.send(req.params);
 };
 
@@ -27,5 +27,5 @@ exports.book_delete = (req, res) => {
 };
 
 exports.author_delete = (req, res) => {
-    res.send("Not implemented 6!");
+    res.send(req.params);
 };
