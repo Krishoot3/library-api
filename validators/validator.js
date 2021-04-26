@@ -23,8 +23,8 @@ exports.validateAuthorName = [
     param('authorName')
     .trim()
     .escape()
-    .isAlpha()
-    .withMessage('Author name must be alphabetic!')
+    //.isAlpha()
+    //.withMessage('Author name must be alphabetic!')
     .bail()
     .isLength({min: 3})
     .withMessage('Minimum 3 characters are required!'),

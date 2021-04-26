@@ -15,7 +15,7 @@ router.get('/book/:bookName/author/:authorName',
 
 router.get('/book/:bookName', validator.validateBookName, book_controller.book_detail);
 
-router.put('/book/:bookName', validator.validateBookName, book_controller.book_edit);
+router.put('/book', validator.validateBody, book_controller.book_edit);
 
 router.delete('/book/:bookName', validator.validateBookName, book_controller.book_delete);
 
