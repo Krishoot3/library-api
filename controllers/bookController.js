@@ -33,7 +33,6 @@ exports.book_filter_detail = (req, res) => {
                 delete p.purchase_price;
                 return true;
             });
-            
             res.status(200).json(filtered2);
         }
     });
@@ -69,8 +68,22 @@ exports.book_edit = (req, res) => {
     });
 };
 
-exports.book_delete = (req, res) => {
-    res.send("Not implemented 5!");
+exports.book_delete = async (req, res) => {
+    const bookArray = req.params.bookName.split("-");
+    const authorArray = req.params.authorName.split("-");
+
+    const dataBook = bookArray.join(" ");
+    const dataAuthor = authorArray.join(" ");
+
+    const deleteBook = await pool.query('DELETE FROM public.book WHERE name = $1', [dataBook]);
+    const selectAuthor = await pool.query('SELECT * FROM public.book WHERE author = $1', [dataAuthor]);
+
+    if (selectAuthor.rowCount === 0) {
+        const deleteAuthor = await pool.query('DELETE FROM public.author WHERE "fullName" = $1', [dataAuthor]);
+        res.status(200).json({ message: "Book and author deleted" });
+    } else {
+        res.status(200).json({ message: "Book deleted" });
+    }
 };
 
 exports.author_delete = async (req, res) => {
