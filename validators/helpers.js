@@ -9,6 +9,7 @@ exports.bookInsert = async (req, res, pool, msg) => {
     .catch(error => res.status(500).json({ message: "Internal server error"}));
 };
 
+//Spliter for request params: /book/Some-name
 exports.splitName = (name) => {
     const spliter = name.split("-");
     const resultName = spliter.join(" ");

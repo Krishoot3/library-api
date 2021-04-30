@@ -15,7 +15,10 @@ exports.validateBookName = [
     .trim()
     .escape()
     .isLength({min: 3})
-    .withMessage('Minimum 3 characters are required!'),
+    .withMessage('Minimum 3 characters are required!')
+    .bail()
+    .isLength({max: 50})
+    .withMessage('Maximum 50 characters are required!'),
     errorReporter
 ];
 
@@ -23,11 +26,11 @@ exports.validateAuthorName = [
     param('authorName')
     .trim()
     .escape()
-    //.isAlpha()
-    //.withMessage('Author name must be alphabetic!')
-    .bail()
     .isLength({min: 3})
-    .withMessage('Minimum 3 characters are required!'),
+    .withMessage('Minimum 3 characters are required!')
+    .bail()
+    .isLength({max: 50})
+    .withMessage('Maximum 50 characters are required!'),
     errorReporter
 ];
 
@@ -40,6 +43,24 @@ exports.validateBody = [
     .bail()
     .isLength({min: 3})
     .withMessage('Minimum 3 characters required!')
+    .bail(),
+
+    body('author', 'name')
+    .isLength({max: 50})
+    .withMessage('Maximum 50 characters are required!')
+    .bail(),
+
+    body('genre')
+    .isLength({max: 30})
+    .withMessage('Maximum 30 characters are required!')
+    .bail()
+    .isIn(['Beletria', 'Pre deti', 'Odborna a naucna', 'Historia'])
+    .withMessage('Wrong genre!')
+    .bail(),
+
+    body('description')
+    .isLength({max: 100})
+    .withMessage('Maximum 100 characters are required!')
     .bail(),
 
     body('purchase_price')

@@ -97,7 +97,7 @@ exports.book_delete = async (req, res) => {
     const deleteBook = await pool.query('DELETE FROM public.book WHERE name = $1 AND author = $2', [book, author]);
 
     if (deleteBook.rowCount === 0 ) {
-        res.status(400).json({ message: "Something went wrong" });
+        res.status(400).json({ message: "Data not deleted" });
     } else {
         const selectAuthor = await pool.query('SELECT * FROM public.book WHERE author = $1', [author]);
 
@@ -119,7 +119,7 @@ exports.author_delete = async (req, res) => {
     const deleteAuthor = await pool.query('DELETE FROM public.author WHERE "fullName" = $1', [author]);
 
     if (deleteBook.rowCount == 0 || deleteAuthor == 0) {
-        res.status(400).json({ message: "Something went wrong" });
+        res.status(400).json({ message: "Data not deleted" });
     } else {
         res.status(200).json({ message: "Data deleted" });
     }
